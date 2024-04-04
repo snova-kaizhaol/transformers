@@ -143,8 +143,8 @@ class DynamicCache(Cache):
             self.key_cache.append(key_states)
             self.value_cache.append(value_states)
         else:
-            self.key_cache[layer_idx] = torch.cat([self.key_cache[layer_idx], key_states], dim=-2)
-            self.value_cache[layer_idx] = torch.cat([self.value_cache[layer_idx], value_states], dim=-2)
+            self.key_cache[layer_idx] = torch.cat([self.key_cache[layer_idx].to(key_states.device), key_states], dim=-2)
+            self.value_cache[layer_idx] = torch.cat([self.value_cache[layer_idx].to(value_states.device), value_states], dim=-2)
 
         return self.key_cache[layer_idx], self.value_cache[layer_idx]
 
